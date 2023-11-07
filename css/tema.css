@@ -1,0 +1,97 @@
+/*definir imagenes, colores, fuentes, etc */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Roboto+Condensed:ital,wght@1,300&display=swap');
+
+
+
+:root {
+    --azulPrimario: #2C87BF;
+    --amarilloContraste: #f2b705;
+    --blanco: #ffffff;
+    --negro: #000000;
+    --fuente: "Quicksand"
+}
+
+/*Selector Universal*/
+* {
+    font-family: var(--fuente), monospace;
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 2em;
+    text-shadow: 0px 0px 5px var(--amarilloContraste);
+}
+
+
+.bg-amarillo {
+    background-color: var(--amarilloContraste);
+
+}
+
+.logo {
+    width: 100px;
+    height: 50px;
+}
+
+/*selector descendente */
+/*nav li a{*/
+.nav-link {
+    color: var(--negro) !important
+}
+
+/*selector de etiqueta*/
+section,
+footer {
+    margin-top: 50px !important;
+}
+
+
+
+footer,
+footer a {
+    color: var(--blanco);
+}
+
+footer {
+    padding: 25px;
+    text-align: center;
+    background-color: var(--negro);
+}
+
+footer a {
+    padding-bottom: 30px;
+    text-decoration: none;
+}
+
+.btn-buscar {
+    width: 50px;
+    color: var(--azulPrimario);
+    border: 2px var(--azulPrimario) solid;
+    background-color:var(--blanco);
+}
+
+.btn-buscar:hover,
+.btn-buscar:active {
+    color: var(--blanco);
+    background-color: var(--azulPrimario);
+    border: 2px var(--azulPrimario) solid;
+}
+
+.nav-link {
+    padding: 30px;
+}
+
+.nav-link:hover,
+.active {
+    /*color: var(--azulPrimario) !important;
+    /*text-decoration: underline;
+    border-bottom: 4px solid var(--azulPrimario);*/
+    color: var(--blanco) !important;
+    background-color: var(--azulPrimario);
+}
+

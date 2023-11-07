@@ -1,0 +1,11 @@
+@import url(tema.css);
+
+textarea {
+  height: 100px;
+  width: 100px;
+}
+
+.custompadding {
+  margin-bottom: 5px;
+  padding: 5px;
+}
