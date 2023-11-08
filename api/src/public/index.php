@@ -22,34 +22,57 @@ $app->post('/inspelicula', function (Request $request, Response $response, array
 });
 //modificar
 $app->put('/updpelicula', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("Modificar Pelicula");
+    $db=conectar();
+    $rec=$request->getQueryParams();
+    $res=$db->AutoExecute("tpeliculas",$rec,"UPDATE","id=$rec[id]");
+    $response->getBody()->write($res);    
     return $response;
 });
 //eliminar
 $app->delete('/delpelicula/{id}', function (Request $request, Response $response, array $args) {
-    $id = $args["id"];
-    $response->getBody()->write("Eliminar Pelicula id: $id");
+    $id=$args["id"];
+    $db=conectar();
+    $sql="DELETE FROM tpeliculas WHERE id=$id";
+    $res=$db->execute($sql); //Retorna un objeto, no un booleano
+    $response->getBody()->write($res);
     return $response;
 });
 
 //consultas obtenr todas las peliculas
 $app->get('/getpeliculas', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("Get peliculas");
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM tpeliculas";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
     return $response;
 });
 
 //consultas obtener info de una pelicula
 $app->get('/getpelicula/{id}', function (Request $request, Response $response, array $args) {
-    $id = $args["id"];
-    $response->getBody()->write("Get pelicula id: $id");
+    $id=$args["id"];
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM tpeliculas WHERE id=$id";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
     return $response;
 });
 
 //consultas peliculas por nombre
 $app->get('/getpeliculas/{nombre}', function (Request $request, Response $response, array $args) {
-    $nombre = $args["nombre"];
-    $response->getBody()->write("Get peliculas  nombre: $nombre");
-    return $response;
+    $nombre=$args["nombre"];
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM tpeliculas where nombre LIKE '%$nombre%'";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
 });
 
 //Lab05-Daniel-Sibaja-Chinchilla
