@@ -4,13 +4,20 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../../vendor/autoload.php';
+require "conexion.php";
 
 $app = new \Slim\App;
 //endpoint Peliculas
 
 // insertar
 $app->post('/inspelicula', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("Insertar Pelicula");
+    //abrir la conexion
+    $db=conectar();
+    //obtener los datos a insertar
+    $rec=$request->getQueryParams();
+    $res=$db->AutoExecute("tpeliculas",$rec,"INSERT");
+    //retornar el valor que indica si se ejecuto correctamente        
+    $response->getBody()->write($res);
     return $response;
 });
 //modificar
