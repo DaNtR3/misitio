@@ -15,3 +15,6 @@ textarea {
   width: 545px;
 }
 
+.customcolor1{
+  color: var(--azulPrimario);
+}
