@@ -6,13 +6,19 @@ textarea {
 }
 
 .custompadding {
-  margin-bottom: 5px;
-  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.mapsize {  
+  height: 405px;
+  width: 690px;
 }
 
 .buttonsize{
-  height: 35px;
-  width: 545px;
+  height: 40px;
+  width: 615px;
 }
 
 .customcolor1{
