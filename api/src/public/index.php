@@ -75,53 +75,81 @@ $app->get('/getpeliculas/{nombre}', function (Request $request, Response $respon
     $response->getBody()->write(json_encode($res));
 });
 
-//Lab05-Daniel-Sibaja-Chinchilla
+//Lab06-Daniel-Sibaja-Chinchilla
 //---------------------CRUD Usuarios------------------------
  
 //Insertar usuario
 
-$app->post('/users/{id}', function (Request $request, Response $response, array $args) {
-    $usersid = $args["id"];
-    $response->getBody()->write("Insertando usuario: $usersid");
+$app->post('/users', function (Request $request, Response $response, array $args) {
+    //abrir la conexion
+    $db=conectar();
+    //obtener los datos a insertar
+    $rec=$request->getQueryParams();
+    $res=$db->AutoExecute("usuarios",$rec,"INSERT");
+    //retornar el valor que indica si se ejecuto correctamente        
+    $response->getBody()->write($res);
     return $response;
 });
  
 //Modificar usuario
-
-$app->put('/modifyusers/{username}', function (Request $request, Response $response, array $args) {
-    $username = $args["username"];
-    $response->getBody()->write("Modificando usuario: $username");
+ 
+$app->put('/modifyusers/{id}', function (Request $request, Response $response, array $args) {
+    $db=conectar();
+    $rec=$request->getQueryParams();
+    $res=$db->AutoExecute("usuarios",$rec,"UPDATE","id=$rec[id]");
+    $response->getBody()->write($res);    
     return $response;
 });
- 
+
 //Eliminar usuario por id
 
 $app->delete('/deleteusers/{id}', function (Request $request, Response $response, array $args) {
-    $usersid = $args["id"];
-    $response->getBody()->write("Eliminando usuario: $usersid");
+    $id=$args["id"];
+    $db=conectar();
+    $sql="DELETE FROM usuarios WHERE id=$id";
+    $res=$db->execute($sql); //Retorna un objeto, no un booleano
+    $response->getBody()->write($res);
     return $response;
 });
  
 //Iniciar sesion
 
-$app->get('/users/{username}', function (Request $request, Response $response, array $args) {
-    $username = $args["username"];
-    $response->getBody()->write("Iniciando sesion como: $username");
+$app->get('/users/{id}/{password}', function (Request $request, Response $response, array $args) {
+    $id=$args["id"];
+    $password =$args["password"];
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM usuarios WHERE id=$id AND contrasena='$password'";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
     return $response;
 });
  
 //Obtener todos los usuarios 
 $app->get('/users', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("Get all users");
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM usuarios";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
     return $response;
 });
- 
 
 //Obtener los datos de usuario por id
 
-$app->get('/usersdata/{id}', function (Request $request, Response $response, array $args) {
-    $usersid = $args["id"];
-    $response->getBody()->write("Obteniendo datos de: $usersid");
+$app->get('/user/{id}', function (Request $request, Response $response, array $args) {
+    $id=$args["id"];
+    $db=conectar();
+    //definir el tipo de fetch
+    $db->SetFetchMode(ADODB_FETCH_ASSOC);
+    $sql="SELECT * FROM usuarios WHERE id=$id";
+    $res=$db->GetAll($sql);
+    //respuesta en formato json
+    $response->getBody()->write(json_encode($res));
     return $response;
 });
 
