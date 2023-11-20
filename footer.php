@@ -39,8 +39,6 @@
 </script>
 <script src="https://kit.fontawesome.com/fc6c1ad37d.js" crossorigin="anonymous"></script>
 
-
-
 </body>
 
 </html>

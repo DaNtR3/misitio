@@ -1,1 +1,6 @@
 @import url(tema.css);
+
+.customcolor1{
+    color: var(--azulPrimario);
+  }
+  
